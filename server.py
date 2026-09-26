@@ -48,8 +48,12 @@ class Server(BaseHTTPRequestHandler):
         self.wfile.write(content)
 
 
-server = HTTPServer(("0.0.0.0", 8000), Server)
+import os
 
-print("Server running at http://localhost:8000")
+port = int(os.environ.get("PORT", 8000))
+
+server = HTTPServer(("0.0.0.0", port), Server)
+
+print(f"Server running on port {port}")
 
 server.serve_forever()
