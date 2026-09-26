@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Python Click Server</title>
+</head>
+
+<body>
+    <h1>Python Backend Demo</h1>
+
+    <p>Clicks: <span id="clicks">0</span></p>
+
+    <button onclick="clickButton()">Click me</button>
+
+    <script>
+        async function clickButton() {
+            const response = await fetch("/api/click", {
+                method: "POST"
+            });
+
+            const data = await response.json();
+
+            document.getElementById("clicks").textContent = data.clicks;
+        }
+
+        async function loadClicks() {
+            const response = await fetch("/api/clicks");
+
+            const data = await response.json();
+
+            document.getElementById("clicks").textContent = data.clicks;
+        }
+
+        loadClicks();
+    </script>
+</body>
+</html>
